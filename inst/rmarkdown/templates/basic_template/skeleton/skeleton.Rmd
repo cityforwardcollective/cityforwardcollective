@@ -1,0 +1,26 @@
+---
+title: "Template Title"
+author: "Your Name"
+date: "Report Last Run: `r Sys.time()`"
+logo: logo.png
+toc: true
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(RColorBrewer)
+library(scales)
+```
+
+\newpage
+# Introduction
+
+
+
+
