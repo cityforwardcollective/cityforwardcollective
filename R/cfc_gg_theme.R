@@ -16,6 +16,9 @@ cfc_colors <- c(cfc_darkblue,
 
 # Set branded theme
 
-theme_cfc <- theme_minimal() +
-  scale_color_manual(values = cfc_colors) +
-  theme(text = element_text(family = "NewCenturySchoolbook"))
+ggplot <- function(...) {
+  ggplot2::ggplot(...) +
+    scale_fill_manual(values = cfc_colors) +
+    scale_color_manual(values = cfc_colors) +
+    theme_minimal(base_family = "serif")
+}
