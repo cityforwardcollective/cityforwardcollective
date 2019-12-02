@@ -20,5 +20,6 @@ ggplot <- function(...) {
   ggplot2::ggplot(...) +
     scale_fill_manual(values = cfc_colors) +
     scale_color_manual(values = cfc_colors) +
-    theme_minimal(base_family = "serif")
+    theme_minimal(base_family = "serif") +
+    theme(text = element_text(size = 14))
 }
