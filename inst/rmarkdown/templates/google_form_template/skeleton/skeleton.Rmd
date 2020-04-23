@@ -1,0 +1,185 @@
+---
+title: "Template Title"
+author: "Your Name"
+date: "Report Last Run: `r Sys.time()`"
+logo: logo.png
+toc: true
+params:
+  date: ""
+  session: ""
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(RColorBrewer)
+library(scales)
+library(wisconsink12)
+library(cityforwardcollective)
+library(googlesheets4)
+
+sheets_deauth()
+raw_results <- read_sheet("") %>%
+  
+  # Add params filters here
+  
+  filter()
+```
+
+\definecolor{hightlightColor}{HTML}{FFFF66}
+# Aggregate Responses (\colorbox{hightlightColor}{n = `r nrow(raw_results)`})
+
+\newpage
+## Respondents
+
+```{r out.width="125%"}
+responses <- raw_results %>%
+  select(16, 18)
+
+
+names(responses) <- c("role", "sector")
+
+responses <- responses %>%
+           mutate(sector = str_replace_all(sector, " School", ""))
+
+  
+responses %>%
+  group_by(role, sector) %>%
+  summarise(value = n()) %>%
+  modify_at("sector", factor, levels = c(map_chr(1:length(unique(responses$sector)), function(x) responses %>%
+                                                                              group_by(sector) %>%
+                                                                              summarise(tot = n()) %>%
+                                                                              arrange(tot) %>%
+                                                                              .$sector %>%
+                                                                              .[x]))) %>%
+  ggplot(aes(fill = sector, values = value)) +
+  geom_waffle(color = "white", radius = unit(3, "pt"), size = 2, ) +
+  theme(line = element_blank(),
+        axis.text = element_blank(),
+        legend.position = "bottom",
+        legend.text = element_text(),
+        panel.spacing.x = unit(1, "lines"),) +
+  facet_wrap(~ role, nrow = 1, strip.position = "bottom", 
+             labeller = label_wrap_gen(width = 15, multi_line = TRUE)) +
+  coord_equal() +
+  labs(fill = "", title = "Response Breakdown by Role and Sector",
+       subtitle = "Each square is one respondent") +
+  scale_fill_discrete(labels = function(x) str_wrap(x, 20)) +
+  guides(fill = guide_legend(nrow = 2))
+
+
+
+```
+
+## Logistics
+
+```{r}
+responses <- raw_results %>%
+  select(-c(1:2)) %>%
+  modify_at(1:2, factor, levels = c("Very Poor",
+                                    "Poor",
+                                    "Fair",
+                                    "Good",
+                                    "Very Good"), ordered = TRUE) %>%
+  modify_at(c(3:9), factor, levels = c("Strongly Disagree",
+                                                   "Disagree",
+                                                   "Unsure",
+                                                   "Agree",
+                                                   "Strongly Agree"), ordered = TRUE)
+
+
+logistics <- responses %>%
+  select(1:2) %>%
+  gather(., key = "questions", value = "rating") %>%
+  mutate(questions = str_replace_all(str_extract(questions, pattern = "\\[.*\\]$"), "\\[|\\]", "")) %>%
+  modify_at(2, factor, levels = c("Very Poor",
+                                  "Poor",
+                                  "Fair",
+                                  "Good",
+                                  "Very Good"))
+
+logistics %>%
+  ggplot(aes(questions, fill = rating)) +
+  geom_bar(position = "stack", width = .5) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "RdYlGn", drop = FALSE) +
+  labs(x = "", y = "Response Count", fill = "",
+       title = "Logistics Feedback") +
+  coord_flip()
+
+```
+
+## General Session Feedback
+
+```{r general}
+
+gen_ses <- responses %>%
+  select(3:7) %>%
+  gather(., key = "questions", value = "rating") %>%
+  mutate(questions = str_replace_all(str_extract(questions, pattern = "\\[.*\\]$"), "\\[|\\]", "")) %>%
+  modify_at(2, factor, levels = c("Strongly Disagree",
+                                  "Disagree",
+                                  "Unsure",
+                                  "Agree",
+                                  "Strongly Agree"))
+
+gen_ses %>%
+  ggplot(aes(questions, fill = rating)) +
+  geom_bar(position = "stack", width = .5) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "RdYlGn", drop = FALSE) +
+  labs(x = "", y = "Response Count", fill = "",
+       title = "This session...") +
+  coord_flip() +
+  scale_x_discrete(labels = function(questions) str_wrap(questions, width = 20)) 
+```
+
+## Facilitator Feedback
+
+```{r facilitator}
+fac <- responses %>%
+  select(8:9) %>%
+  gather(., key = "questions", value = "rating") %>%
+  mutate(questions = str_replace_all(str_extract(questions, pattern = "\\[.*\\]$"), "\\[|\\]", "")) %>%
+  modify_at(2, factor, levels = c("Strongly Disagree",
+                                  "Disagree",
+                                  "Unsure",
+                                  "Agree",
+                                  "Strongly Agree"))
+
+fac %>%
+  ggplot(aes(questions, fill = rating)) +
+  geom_bar(position = "stack", width = .5) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "RdYlGn", drop = FALSE) +
+  labs(x = "", y = "Response Count", fill = "",
+       title = "The facilitator(s)...") +
+  coord_flip() +
+  scale_x_discrete(labels = function(questions) str_wrap(questions, width = 20)) 
+
+comments <- responses %>%
+  select(10) %>%
+  filter(!is.na(.)) %>%
+  kable(caption = "Comments", col.names = NULL)
+
+comments
+```
+
+\newpage
+## Open-ended Feedback
+
+```{r open-ended, results='asis'}
+for(i in c(11:13)) {
+oe_responses <- responses %>%
+  select(i) %>%
+  filter(. != "NA" & . != "(left blank)") %>%
+  kable(booktabs = T)
+
+print(oe_responses)
+}
+```

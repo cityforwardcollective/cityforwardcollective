@@ -18,8 +18,8 @@ cfc_colors <- c(cfc_darkblue,
 
 ggplot <- function(...) {
   ggplot2::ggplot(...) +
-    scale_fill_manual(values = cfc_colors) +
-    scale_color_manual(values = cfc_colors) +
+    scale_fill_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
+    scale_color_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
     theme_minimal(base_family = "serif") +
     theme(text = element_text(size = 14))
 }
