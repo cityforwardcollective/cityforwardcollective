@@ -22,3 +22,7 @@ library(cityforwardcollective)
 
 \newpage
 # Introduction
+
+\hl{\textbf{`r nrow(data)`}}
+
+\renewcommand{\arraystretch}{2}

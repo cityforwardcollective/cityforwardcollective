@@ -31,8 +31,7 @@ raw_results <- read_sheet("") %>%
   filter()
 ```
 
-\definecolor{hightlightColor}{HTML}{FFFF66}
-# Aggregate Responses (\colorbox{hightlightColor}{n = `r nrow(raw_results)`})
+# Aggregate Responses (\hl{\textbf{n = `r nrow(raw_results)`}})
 
 \newpage
 ## Respondents
@@ -173,6 +172,7 @@ comments
 \newpage
 ## Open-ended Feedback
 
+\renewcommand{\arraystretch}{2}
 ```{r open-ended, results='asis'}
 for(i in c(11:13)) {
 oe_responses <- responses %>%
