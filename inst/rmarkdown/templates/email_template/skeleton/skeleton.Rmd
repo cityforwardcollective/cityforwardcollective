@@ -1,0 +1,14 @@
+---
+title: "Template Title"
+author: "Your Name"
+date: "Report Last Run: `r Sys.time()`"
+button: "[Click Here](https://www.google.com/)"
+output: 
+  html_document:
+    template: template.Rhtml
+---
+
+Hello John,
+
+Here is the message.
+
