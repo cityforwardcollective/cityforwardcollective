@@ -1,14 +1,11 @@
 ---
-title: "Template Title"
-author: "Your Name"
-date: "Report Last Run: `r Sys.time()`"
 button: "[Click Here](https://www.google.com/)"
+preheader: ""
 output: 
   html_document:
     template: template.Rhtml
 ---
 
-Hello John,
+Greetings,
 
-Here is the message.
-
+Message text will go here.
