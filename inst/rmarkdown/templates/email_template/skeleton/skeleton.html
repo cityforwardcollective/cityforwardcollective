@@ -49,13 +49,12 @@
         width: 100%;
       }
 
+      /* Set properties of container element when button isn't present so it looks like a normal email*/
       .no-button {
       display: block;
       max-width: 90%;
       padding: 20px;
       }
-
-
 
       /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
       .container {
@@ -356,16 +355,50 @@
   </head>
   <body class>
     <span class="preheader"></span>
-                  <div class="no-button">
-                <p><p>Greetings,</p>
-<p>Message text will go here.</p></p>
-                <p class="signature">
-                  <span class="name">Spencer Schien</span><br>
-                  <span class="position-title">Manager of Data &amp; Impact</span><br>
-                  <a href="https://cityforwardcollective.org">City Forward Collective</a>
-                </p>
-              </div>
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+      <tr>
+        <td class="container">
+          <div class="content">
 
+            <!-- START CENTERED WHITE CONTAINER -->
+            <table role="presentation" class="main">
+
+              <!-- START MAIN CONTENT AREA -->
+              <tr>
+                <td class="wrapper">
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td>
+                        <p><p>Greetings,</p>
+<p>Message text will go here.</p></p>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                          <tbody>
+                            <tr>
+                              <td align="center">
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td> <a href="https://google.com">Click Here</a> </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p class="signature">
+                        <span class="name">Spencer Schien</span><br>
+                        <span class="position-title">Manager of Data &amp; Impact</span><br>
+                        <a href="https://cityforwardcollective.org">City Forward Collective</a>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+            <!-- END MAIN CONTENT AREA -->
+            </table>
                         <!-- END CENTERED WHITE CONTAINER -->
 
 
