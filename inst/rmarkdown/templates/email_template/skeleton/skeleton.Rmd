@@ -1,5 +1,4 @@
 ---
-button: "[Click Here](https://www.google.com/)"
 preheader: ""
 output: 
   html_document:
