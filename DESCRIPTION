@@ -1,16 +1,21 @@
 Package: cityforwardcollective
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 0.2.0
 Author: Spencer Schien
 Maintainer: Spencer Schien <spencer.schien@cityforwardcollective.org>
 Description: This is a custom package for City Forward Collective.  It includes custom branding for visualization and reporting.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-
 Imports:
+  dplyr,
+  magrittr,
+  salesforcer,
+  stringr,
+  tidyr
+Suggests:
   tidyverse,
   kableExtra,
   scales
-  
+RoxygenNote: 7.1.1
