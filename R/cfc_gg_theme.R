@@ -1,3 +1,11 @@
+#'
+#' @export ggplot
+#' @export cfc_darkblue
+#' @export cfc_orange
+#' @export cfc_teal
+#' @export cfc_babyblue
+#' @export cfc_skyblue
+#' @export cfc_colors
 # Define Brand Colors
 
 cfc_darkblue <- "#003349"
