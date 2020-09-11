@@ -24,14 +24,14 @@ get_burke_fellows <- function(cohorts = "current") {
 
   # Default case: pull current fellows
 
-  if(is.character(cohorts)) {
+  if (is.character(cohorts)) {
 
-    if(cohorts == "current") {
+    if (cohorts == "current") {
 
       cos <- sf_cohorts %>%
         filter(number >= max(number) - 1)
 
-      soql <- sprintf("SELECT Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
+      soql <- sprintf("SELECT Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
                     Contact__r.Title, Contact__r.Current_Employer__c FROM Leader__c WHERE Cohort__c in ('%s')",
                       paste0(cos$Id, collapse = "','"))
 
@@ -44,11 +44,12 @@ get_burke_fellows <- function(cohorts = "current") {
                   email = Contact__r.Email,
                   title = Contact__r.Title,
                   current_employer = Contact__r.Current_Employer__c,
-                  cohort = Cohort__r.Name)
+                  cohort = Cohort__r.Name,
+                  leader_id = Id)
 
-    } else if(cohorts == "all") {
+    } else if (cohorts == "all") {
 
-      soql <- sprintf("SELECT Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
+      soql <- sprintf("SELECT Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
                     Contact__r.Title, Contact__r.Current_Employer__c FROM Leader__c WHERE Cohort__c in ('%s')",
                       paste0(sf_cohorts$Id, collapse = "','"))
 
@@ -61,7 +62,8 @@ get_burke_fellows <- function(cohorts = "current") {
                   email = Contact__r.Email,
                   title = Contact__r.Title,
                   current_employer = Contact__r.Current_Employer__c,
-                  cohort = Cohort__r.Name)
+                  cohort = Cohort__r.Name,
+                  leader_id = Id)
     } else {
 
       stop("The 'cohorts' argument must either be 'current', 'all', or a numberic vector.")
@@ -69,12 +71,12 @@ get_burke_fellows <- function(cohorts = "current") {
     }
 
 
-  } else if(is.numeric(cohorts)) {
+  } else if (is.numeric(cohorts)) {
 
     cos <- sf_cohorts %>%
       filter(number %in% cohorts)
 
-    soql <- sprintf("SELECT Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
+    soql <- sprintf("SELECT Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
                     Contact__r.Title, Contact__r.Current_Employer__c FROM Leader__c WHERE Cohort__c in ('%s')",
                     paste0(cos$Id, collapse = "','"))
 
@@ -87,7 +89,8 @@ get_burke_fellows <- function(cohorts = "current") {
                 email = Contact__r.Email,
                 title = Contact__r.Title,
                 current_employer = Contact__r.Current_Employer__c,
-                cohort = Cohort__r.Name)
+                cohort = Cohort__r.Name,
+                leader_id = Id)
 
   } else {
 
