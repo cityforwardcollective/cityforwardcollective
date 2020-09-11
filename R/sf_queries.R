@@ -32,7 +32,8 @@ get_burke_fellows <- function(cohorts = "current") {
         filter(number >= max(number) - 1)
 
       soql <- sprintf("SELECT Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
-                    Contact__r.Title, Contact__r.Current_Employer__c FROM Leader__c WHERE Cohort__c in ('%s')",
+                    Contact__r.Title, Contact__r.Current_Employer__c, Age_Upon_Entry__c, Race_Ethnicity__c, Pronouns__c
+                      FROM Leader__c WHERE Cohort__c in ('%s')",
                       paste0(cos$Id, collapse = "','"))
 
       burkes <- sf_query(soql, object_name = "Leader__c")
@@ -45,12 +46,16 @@ get_burke_fellows <- function(cohorts = "current") {
                   title = Contact__r.Title,
                   current_employer = Contact__r.Current_Employer__c,
                   cohort = Cohort__r.Name,
+                  age_upon_entry = Age_Upon_Entry__c,
+                  race_ethnicity = Race_Ethnicity__c,
+                  pronouns = Pronouns__c,
                   leader_id = Id)
 
     } else if (cohorts == "all") {
 
       soql <- sprintf("SELECT Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
-                    Contact__r.Title, Contact__r.Current_Employer__c FROM Leader__c WHERE Cohort__c in ('%s')",
+                    Contact__r.Title, Contact__r.Current_Employer__c, Age_Upon_Entry__c, Race_Ethnicity__c, Pronouns__c
+                       FROM Leader__c WHERE Cohort__c in ('%s')",
                       paste0(sf_cohorts$Id, collapse = "','"))
 
       burkes <- sf_query(soql, object_name = "Leader__c")
@@ -63,6 +68,9 @@ get_burke_fellows <- function(cohorts = "current") {
                   title = Contact__r.Title,
                   current_employer = Contact__r.Current_Employer__c,
                   cohort = Cohort__r.Name,
+                  age_upon_entry = Age_Upon_Entry__c,
+                  race_ethnicity = Race_Ethnicity__c,
+                  pronouns = Pronouns__c,
                   leader_id = Id)
     } else {
 
@@ -77,7 +85,8 @@ get_burke_fellows <- function(cohorts = "current") {
       filter(number %in% cohorts)
 
     soql <- sprintf("SELECT Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
-                    Contact__r.Title, Contact__r.Current_Employer__c FROM Leader__c WHERE Cohort__c in ('%s')",
+                    Contact__r.Title, Contact__r.Current_Employer__c, Age_Upon_Entry__c, Race_Ethnicity__c, Pronouns__c
+                       FROM Leader__c WHERE Cohort__c in ('%s')",
                     paste0(cos$Id, collapse = "','"))
 
     burkes <- sf_query(soql, object_name = "Leader__c")
@@ -90,6 +99,9 @@ get_burke_fellows <- function(cohorts = "current") {
                 title = Contact__r.Title,
                 current_employer = Contact__r.Current_Employer__c,
                 cohort = Cohort__r.Name,
+                age_upon_entry = Age_Upon_Entry__c,
+                race_ethnicity = Race_Ethnicity__c,
+                pronouns = Pronouns__c,
                 leader_id = Id)
 
   } else {
