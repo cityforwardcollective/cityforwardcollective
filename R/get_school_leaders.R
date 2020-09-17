@@ -22,6 +22,8 @@ get_school_leaders <- function() {
            dpi_true_id = DPI_Name__c,
            school_name = Name,
            primary_contact = npe01__One2OneContact__r.Name,
+           first_name = npe01__One2OneContact__r.FirstName,
+           last_name = npe01__One2OneContact__r.LastName,
            primary_contact_email = Primary_Contact_Email__c)
 
   return(school_primary_contacts)
