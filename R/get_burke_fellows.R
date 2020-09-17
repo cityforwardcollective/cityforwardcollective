@@ -1,10 +1,8 @@
-#' Make common soql queries from Salesforce
+#' Retrieve list of Burke Fellows from City Forward Collective's Salesforce instance
 #'
 #' @param cohorts Designations of the cohorts of fellows to query.
 #' Accepts 'current', 'all', or a numeric vector.
 #'
-#' Queries the City Forward Collective Salesforce Instance with
-#' common soql queries.
 #'
 #' @import salesforcer
 #' @importFrom magrittr %>%
@@ -38,7 +36,7 @@ get_burke_fellows <- function(cohorts = "current") {
 
       burkes <- sf_query(soql, object_name = "Leader__c")
 
-      current_burkes <<- burkes %>%
+      current_burkes <- burkes %>%
         transmute(first_name = Contact__r.FirstName,
                   last_name = Contact__r.LastName,
                   full_name = paste(first_name, last_name),
@@ -50,6 +48,8 @@ get_burke_fellows <- function(cohorts = "current") {
                   race_ethnicity = Race_Ethnicity__c,
                   pronouns = Pronouns__c,
                   leader_id = Id)
+
+      return(current_burkes)
 
     } else if (cohorts == "all") {
 
@@ -60,7 +60,7 @@ get_burke_fellows <- function(cohorts = "current") {
 
       burkes <- sf_query(soql, object_name = "Leader__c")
 
-      all_burkes <<- burkes %>%
+      all_burkes <- burkes %>%
         transmute(first_name = Contact__r.FirstName,
                   last_name = Contact__r.LastName,
                   full_name = paste(first_name, last_name),
@@ -72,6 +72,9 @@ get_burke_fellows <- function(cohorts = "current") {
                   race_ethnicity = Race_Ethnicity__c,
                   pronouns = Pronouns__c,
                   leader_id = Id)
+
+      return(all_burkes)
+
     } else {
 
       stop("The 'cohorts' argument must either be 'current', 'all', or a numberic vector.")
@@ -91,7 +94,7 @@ get_burke_fellows <- function(cohorts = "current") {
 
     burkes <- sf_query(soql, object_name = "Leader__c")
 
-    burkes <<- burkes %>%
+    burkes <- burkes %>%
       transmute(first_name = Contact__r.FirstName,
                 last_name = Contact__r.LastName,
                 full_name = paste(first_name, last_name),
@@ -104,6 +107,8 @@ get_burke_fellows <- function(cohorts = "current") {
                 pronouns = Pronouns__c,
                 leader_id = Id)
 
+    return(burkes)
+
   } else {
 
     stop("The 'cohorts' argument must either be 'current', 'all', or a numberic vector.")
@@ -111,4 +116,7 @@ get_burke_fellows <- function(cohorts = "current") {
   }
 
 }
+
+
+# School Leaders ==========
 
