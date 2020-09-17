@@ -11,7 +11,7 @@
 get_school_leaders <- function() {
 
   soql <- sprintf("SELECT Id, Name, DPI_Name__c, npe01__One2OneContact__c, npe01__One2OneContact__r.Name,
-                  Primary_Contact_Email__c FROM Account
+                  npe01__One2OneContact__r.FirstName, npe01__One2OneContact__r.LastName, Primary_Contact_Email__c FROM Account
                   WHERE Type = 'School' AND School_is_Closed__c = false AND DPI_Name__c != null")
 
   temp <- sf_query(soql, object_name = "Account")
