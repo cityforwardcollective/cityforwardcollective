@@ -23,7 +23,7 @@ library(wisconsink12)
 library(cityforwardcollective)
 library(googlesheets4)
 
-sheets_deauth()
+gs4_auth(email = "stcmassessments@gmail.com")
 raw_results <- read_sheet("") %>%
   
   # Add params filters here
@@ -164,7 +164,9 @@ fac %>%
 comments <- responses %>%
   select(10) %>%
   filter(!is.na(.)) %>%
-  kable(caption = "Comments", col.names = NULL)
+  kbl(booktabs = T, linesep = "") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "40em")
 
 comments
 ```
@@ -172,13 +174,16 @@ comments
 \newpage
 ## Open-ended Feedback
 
-\renewcommand{\arraystretch}{2}
+\renewcommand{\arraystretch}{1.5}
+
 ```{r open-ended, results='asis'}
-for(i in c(11:13)) {
+for (i in c(11:13)) {
 oe_responses <- responses %>%
   select(i) %>%
   filter(. != "NA" & . != "(left blank)") %>%
-  kable(booktabs = T)
+  kbl(booktabs = T, linesep = "") %>%
+  kable_styling(latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "40em")
 
 print(oe_responses)
 }
