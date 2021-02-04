@@ -7,6 +7,7 @@ toc: true
 params:
   date: ""
   session: ""
+  survey_url: ""
 output: 
   pdf_document:
     includes:
@@ -23,8 +24,36 @@ library(wisconsink12)
 library(cityforwardcollective)
 library(googlesheets4)
 
-gs4_auth(email = "stcmassessments@gmail.com")
-raw_results <- read_sheet("") %>%
+# Avoid Google API Limits by saving local
+# copy and refreshing only after 1 hour
+
+if (!dir.exists("../data")) {
+  
+  dir.create("../data")
+  
+  gs4_auth(email = "stcmassessments@gmail.com")
+  raw_results <- read_sheet(params$survey_url)
+  
+  last_data <- list("d" = raw_results, last_refresh = Sys.time())
+  saveRDS(last_data, "../data/last_data.rds")
+} else {
+  
+  last_data <- readRDS("../data/last_data.rds")
+  
+}
+
+if (Sys.time() - last_data$last_refresh > 60) {
+  
+  gs4_auth(email = "stcmassessments@gmail.com")
+  raw_results <- read_sheet(params$survey_url)
+  
+} else {
+  
+  raw_results <- last_data$d
+  
+}
+
+raw_results <- raw_results %>%
   
   # Add params filters here
   
