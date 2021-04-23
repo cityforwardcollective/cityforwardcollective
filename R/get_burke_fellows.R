@@ -54,7 +54,7 @@ get_burke_fellows <- function(cohorts = "current") {
 
     } else if (cohorts == "all") {
 
-      soql <- sprintf("SELECT Id, Contact__r. Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
+      soql <- sprintf("SELECT Id, Contact__r.Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
                     Contact__r.Title, Contact__r.Current_Employer__c, Age_Upon_Entry__c, Race_Ethnicity__c, Pronouns__c
                        FROM Leader__c WHERE Cohort__c in ('%s')",
                       paste0(sf_cohorts$Id, collapse = "','"))
@@ -89,7 +89,7 @@ get_burke_fellows <- function(cohorts = "current") {
     cos <- sf_cohorts %>%
       filter(number %in% cohorts)
 
-    soql <- sprintf("SELECT Id, Contact__r. Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
+    soql <- sprintf("SELECT Id, Contact__r.Id, Cohort__r.Name, Contact__r.FirstName, Contact__r.LastName, Contact__r.Email,
                     Contact__r.Title, Contact__r.Current_Employer__c, Age_Upon_Entry__c, Race_Ethnicity__c, Pronouns__c
                        FROM Leader__c WHERE Cohort__c in ('%s')",
                     paste0(cos$Id, collapse = "','"))
