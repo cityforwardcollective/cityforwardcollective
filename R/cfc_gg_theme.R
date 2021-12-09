@@ -29,5 +29,8 @@ ggplot <- function(...) {
     scale_fill_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
     scale_color_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
     theme_minimal(base_family = "serif") +
-    theme(text = element_text(size = 14, family = "serif"))
+    theme(text = element_text(size = 14, family = "serif"),
+          plot.title.position = "plot",
+          plot.caption.position = "plot",
+          plot.caption = element_text(hjust = 0))
 }
