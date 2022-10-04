@@ -6,15 +6,8 @@ mainfont: Verdana
 sansfont: Georgia
 format: 
   pdf:
-    header-includes: |
-      \usepackage{titling}
-      \pretitle{%
-        \begin{center}
-        \huge
-        \setmainfont{Georgia}
-        \includegraphics[width=4cm,height=6cm]{_extensions/cityforwardcollective/img/logo.png}\\[\bigskipamount]
-      }
-      \posttitle{\end{center}}
+    include-in-header: 
+      - header.tex
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)

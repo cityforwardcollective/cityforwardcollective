@@ -4,11 +4,18 @@
 #'
 #' @return a message if extension was successfully copied over
 #' @export
-use_quarto_ext <- function(ext_name = "cityforwardcollective",
-                           file_name = NULL) {
+use_quarto_ext <- function(file_name = NULL,
+                           ext_name = "cityforwardcollective",
+                           copy_tex = FALSE) {
 
   if (is.null(file_name)) {
     stop("You must provide a valid file_name")
+  }
+
+  out_dir <- file_name
+
+  if(!dir.exists(out_dir)) {
+    dir.create(out_dir)
   }
 
   # check for available extensions
@@ -56,9 +63,13 @@ use_quarto_ext <- function(ext_name = "cityforwardcollective",
   }
 
   readLines("_extensions/cityforwardcollective/skeleton.qmd") |>
-    writeLines(text = _, con = paste0(file_name, ".qmd", collapse = ""))
+    writeLines(text = _,
+               con = paste0(out_dir, "/", file_name, ".qmd", collapse = ""))
 
-    file.edit(paste0(file_name, ".qmd", collapse = ""))
+  file.edit(paste0(out_dir, "/", file_name, ".qmd", collapse = ""))
+
+  readLines("_extensions/cityforwardcollective/header.tex") |>
+    writeLines(text = _, con = paste0(out_dir, "/header.tex"))
 
 }
 
