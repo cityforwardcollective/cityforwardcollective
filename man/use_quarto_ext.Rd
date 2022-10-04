@@ -4,7 +4,7 @@
 \alias{use_quarto_ext}
 \title{Install bundled Quarto extensions into current working directory}
 \usage{
-use_quarto_ext(ext_name = "cityforwardcollective", file_name = "untitled")
+use_quarto_ext(ext_name = "cityforwardcollective", file_name = NULL)
 }
 \arguments{
 \item{ext_name}{String indicating which extension to install}

@@ -5,7 +5,11 @@
 #' @return a message if extension was successfully copied over
 #' @export
 use_quarto_ext <- function(ext_name = "cityforwardcollective",
-                           file_name = "untitled") {
+                           file_name = NULL) {
+
+  if (is.null(file_name)) {
+    stop("You must provide a valid file_name")
+  }
 
   # check for available extensions
   stopifnot("Extension not in package" = ext_name %in% c("cityforwardcollective"))
