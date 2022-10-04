@@ -50,10 +50,10 @@ use_quarto_ext <- function(ext_name = "cityforwardcollective",
     message("Extension appears not to have been created")
   }
 
-  readLines("inst/extdata/_extensions/cityforwardcollective/skeleton.qmd") |>
+  readLines("_extensions/cityforwardcollective/skeleton.qmd") |>
     writeLines(text = _, con = paste0(file_name, ".qmd", collapse = ""))
 
-    file.edit()
+    file.edit(paste0(file_name, ".qmd", collapse = ""))
 
 }
 
