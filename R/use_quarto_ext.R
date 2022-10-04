@@ -15,7 +15,8 @@ use_quarto_ext <- function(ext_name = "cityforwardcollective",
   message("Created '_extensions' folder")
 
   # various reading of key-value pairs for reporting
-  ext_yml <- readLines("inst/extdata/_extensions/cityforwardcollective/_extension.yml")
+  ext_yml <- readLines(system.file("./inst/extdata/_extensions/cityforwardcollective/_extension.yml",
+                                   package = "cityforwardcollective"))
 
   ext_ver <- gsub(
     x = ext_yml[grepl(x = ext_yml, pattern = "version:")],
