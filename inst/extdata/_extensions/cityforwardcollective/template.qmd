@@ -4,10 +4,16 @@ author: "Your Name"
 date: "Report Last Run: `r Sys.time()`"
 mainfont: Verdana
 sansfont: Georgia
+toc: true
+geometry:
+  - top=30mm
+  - left=1in
+  - right=1in
+  - heightrounded
 format: 
   pdf:
-    include-in-header: 
-      - header.tex
+    template-partials: 
+      - title.tex
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)

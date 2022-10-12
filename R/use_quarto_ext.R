@@ -62,14 +62,14 @@ use_quarto_ext <- function(file_name = NULL,
     message("Extension appears not to have been created")
   }
 
-  readLines("_extensions/cityforwardcollective/skeleton.qmd") |>
+  readLines("_extensions/cityforwardcollective/template.qmd") |>
     writeLines(text = _,
                con = paste0(out_dir, "/", file_name, ".qmd", collapse = ""))
 
   file.edit(paste0(out_dir, "/", file_name, ".qmd", collapse = ""))
 
-  readLines("_extensions/cityforwardcollective/header.tex") |>
-    writeLines(text = _, con = paste0(out_dir, "/header.tex"))
+  readLines("_extensions/cityforwardcollective/title.tex") |>
+    writeLines(text = _, con = paste0(out_dir, "/title.tex"))
 
 }
 
