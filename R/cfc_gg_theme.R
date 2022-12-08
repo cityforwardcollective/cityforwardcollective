@@ -1,6 +1,6 @@
 #'
+#' @export GeomPoint
 #' @export ggplot
-#' @export geom_point
 #' @export cfc_darkblue
 #' @export cfc_orange
 #' @export cfc_teal
@@ -49,6 +49,37 @@ ggplot <- function(...) {
           panel.grid.major.x = element_blank())
 }
 
-geom_point <- function(...) {
-  ggplot2::geom_point(color = cfc_darkblue)
-}
+#' @export
+GeomPoint <- ggproto("GeomPoint", Geom,
+                     required_aes = c("x", "y"),
+                     non_missing_aes = c("size", "shape", "colour"),
+                     default_aes = aes(
+                       shape = 19, colour = cfc_darkblue, size = 1.5, fill = NA,
+                       alpha = NA, stroke = 0.5
+                     ),
+
+                     draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
+                       if (is.character(data$shape)) {
+                         data$shape <- translate_shape_string(data$shape)
+                       }
+
+                       coords <- coord$transform(data, panel_params)
+                       stroke_size <- coords$stroke
+                       stroke_size[is.na(stroke_size)] <- 0
+                       ggname("geom_point",
+                              pointsGrob(
+                                coords$x, coords$y,
+                                pch = coords$shape,
+                                gp = gpar(
+                                  col = alpha(coords$colour, coords$alpha),
+                                  fill = alpha(coords$fill, coords$alpha),
+                                  # Stroke is added around the outside of the point
+                                  fontsize = coords$size * .pt + stroke_size * .stroke / 2,
+                                  lwd = coords$stroke * .stroke / 2
+                                )
+                              )
+                       )
+                     },
+
+                     draw_key = draw_key_point
+)
