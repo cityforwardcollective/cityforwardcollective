@@ -50,10 +50,10 @@ ggplot <- function(...) {
 }
 
 #' @export
-GeomPoint <- ggproto("GeomPoint", Geom,
+GeomPoint <- ggplot2::ggproto("GeomPoint", ggplot2::Geom,
                      required_aes = c("x", "y"),
                      non_missing_aes = c("size", "shape", "colour"),
-                     default_aes = aes(
+                     default_aes = ggplot2::aes(
                        shape = 19, colour = cfc_darkblue, size = 1.5, fill = NA,
                        alpha = NA, stroke = 0.5
                      ),
@@ -70,7 +70,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
                               pointsGrob(
                                 coords$x, coords$y,
                                 pch = coords$shape,
-                                gp = gpar(
+                                gp = grid::gpar(
                                   col = alpha(coords$colour, coords$alpha),
                                   fill = alpha(coords$fill, coords$alpha),
                                   # Stroke is added around the outside of the point
@@ -81,5 +81,5 @@ GeomPoint <- ggproto("GeomPoint", Geom,
                        )
                      },
 
-                     draw_key = draw_key_point
+                     draw_key = ggplot2::draw_key_point
 )
