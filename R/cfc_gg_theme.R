@@ -1,6 +1,6 @@
 #'
-#' @importFrom ggplot2 %+replace%
 #' @export ggplot
+#' @export geom_point
 #' @export cfc_darkblue
 #' @export cfc_orange
 #' @export cfc_teal
@@ -47,4 +47,8 @@ ggplot <- function(...) {
                                       color = "grey50"),
           panel.grid.minor = element_blank(),
           panel.grid.major.x = element_blank())
+}
+
+geom_point <- function(...) {
+  ggplot2::geom_point(color = cfc_darkblue)
 }
