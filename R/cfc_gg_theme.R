@@ -1,4 +1,5 @@
 #'
+#' @importFrom ggplot2 %+replace%
 #' @export ggplot
 #' @export cfc_darkblue
 #' @export cfc_orange
