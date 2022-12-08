@@ -8,14 +8,6 @@
 #' @export cfc_skyblue
 #' @export cfc_colors
 
-# ensure branded fonts are available
-.onload <- function(...) {
-  if (.Platform$OS.type == "windows") {
-    windowsFonts(Georgia = windowsFont("Georgia"),
-                 Verdana = windowsFont("Verdana"))
-  }
-}
-
 
 # Define Brand Colors
 
