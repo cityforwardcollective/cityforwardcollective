@@ -31,10 +31,10 @@ ggplot <- function(...) {
     scale_fill_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
     scale_color_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
     theme_minimal() +
-    theme(text = element_text(family = "Verdana",
+    theme(text = element_text(family = "Open Sans",
                               size = 16),
           plot.title.position = "plot",
-          plot.title = element_text(family = "Georgia",
+          plot.title = element_text(family = "Montserrat",
                                     face = "bold",
                                     size = 24,
                                     margin = margin(b = 20)),
