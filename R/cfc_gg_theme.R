@@ -50,8 +50,8 @@ cfc_colors <- c(cfc_darkblue,
 
 ggplot <- function(...) {
   ggplot2::ggplot(...) +
-    scale_fill_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
-    scale_color_manual(values = cfc_colors, labels = function(x) str_wrap(x, 20)) +
+    scale_fill_manual(values = cfc_sector_cols, labels = function(x) str_wrap(x, 20)) +
+    scale_color_manual(values = cfc_sector_cols, labels = function(x) str_wrap(x, 20)) +
     theme_minimal() +
     theme(text = element_text(family = "Open Sans",
                               size = 16),
