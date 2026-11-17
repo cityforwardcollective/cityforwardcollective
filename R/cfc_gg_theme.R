@@ -53,11 +53,10 @@ ggplot <- function(...) {
     scale_fill_manual(values = cfc_sector_cols, labels = function(x) str_wrap(x, 20)) +
     scale_color_manual(values = cfc_sector_cols, labels = function(x) str_wrap(x, 20)) +
     theme_minimal() +
-    theme(text = element_text(family = "Open Sans",
+    theme(text = element_text(family = "Trebuchet MS",
                               size = 16),
           plot.title.position = "plot",
-          plot.title = element_text(family = "Montserrat",
-                                    face = "bold",
+          plot.title = element_text(face = "bold",
                                     size = 24,
                                     margin = margin(b = 20)),
           plot.subtitle = element_text(color = "grey30",
